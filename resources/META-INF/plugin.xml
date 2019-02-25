@@ -1,18 +1,12 @@
 <idea-plugin>
-  <id>com.your.company.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <id>com.huawei.cloud.servicestage.idea.plugin</id>
+  <name>ServiceStage-IDEA</name>
   <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <vendor email="512371723@qq.com" url="https://">Huawei</vendor>
 
-  <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
-    ]]></description>
+  <description>This is a idea plugin for servicestage.You can use it deploy your project on IDEA</description>
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-    ]]>
+  <change-notes>This is a idea plugin for servicestage.You can use it deploy your project on IDEA
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -23,7 +17,11 @@
   <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
   -->
-
+  <application-components>
+    <component>
+      <implementation-class>com.huawei.cloud.SettingsComponent</implementation-class>
+    </component>
+  </application-components>
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
   </extensions>
@@ -39,6 +37,10 @@
               text="Status" description="app status"/>
 
     </group>
+
+    <action id="ServiceStage.IDEA.ProjectAction" class="com.huawei.cloud.ProjectAction" text="ServiceStage Deploy">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
+    </action>
   </actions>
 
 </idea-plugin>
