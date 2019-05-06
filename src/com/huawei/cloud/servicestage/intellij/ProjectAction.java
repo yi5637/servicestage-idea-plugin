@@ -1,4 +1,4 @@
-package com.huawei.cloud;
+package com.huawei.cloud.servicestage.intellij;
 
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.fileTypes.PlainTextFileType;

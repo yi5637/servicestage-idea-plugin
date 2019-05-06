@@ -1,4 +1,4 @@
-package com.huawei.cloud;
+package com.huawei.cloud.servicestage.intellij;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnAction;

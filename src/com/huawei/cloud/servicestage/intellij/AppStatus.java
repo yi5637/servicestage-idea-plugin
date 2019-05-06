@@ -1,4 +1,4 @@
-package com.huawei.cloud;
+package com.huawei.cloud.servicestage.intellij;
 
 public class AppStatus {
 

@@ -2,7 +2,7 @@
   <id>com.huawei.cloud.servicestage.idea.plugin</id>
   <name>ServiceStage-IDEA</name>
   <version>1.0</version>
-  <vendor email="512371723@qq.com" url="https://">Huawei</vendor>
+  <vendor email="partner@huaweicloud.com" url="https://www.huaweicloud.com/product/servicestage.html">Huawei</vendor>
 
   <description>This is a idea plugin for servicestage.You can use it deploy your project on IDEA</description>
 
@@ -19,7 +19,7 @@
   -->
   <application-components>
     <component>
-      <implementation-class>com.huawei.cloud.SettingsComponent</implementation-class>
+      <implementation-class>com.huawei.cloud.servicestage.intellij.SettingsComponent</implementation-class>
     </component>
   </application-components>
   <extensions defaultExtensionNs="com.intellij">
@@ -30,15 +30,15 @@
     <!-- Add your actions here -->
     <group id="ServiceStage.IDEA.ServiceStageMenu" text="ServiceStage" description="ServiceStage menu" >
       <add-to-group group-id="MainMenu" anchor="last"/>
-      <action id="ServiceStage.IDEA.ServiceStageConfigAction" class="com.huawei.cloud.ServiceStageConfigAction"
+      <action id="ServiceStage.IDEA.ServiceStageConfigAction" class="com.huawei.cloud.servicestage.intellij.ServiceStageConfigAction"
               text="Configure" description="config"/>
 
-      <action id="ServiceStage.IDEA.ServiceStageStatusAction" class="com.huawei.cloud.ServiceStageStatusAction"
+      <action id="ServiceStage.IDEA.ServiceStageStatusAction" class="com.huawei.cloud.servicestage.intellij.ServiceStageStatusAction"
               text="Status" description="app status"/>
 
     </group>
 
-    <action id="ServiceStage.IDEA.ProjectAction" class="com.huawei.cloud.ProjectAction" text="ServiceStage Deploy">
+    <action id="ServiceStage.IDEA.ProjectAction" class="com.huawei.cloud.servicestage.intellij.ProjectAction" text="ServiceStage Deploy">
       <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
     </action>
   </actions>

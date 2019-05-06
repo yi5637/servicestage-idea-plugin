@@ -1,4 +1,4 @@
-package com.huawei.cloud;
+package com.huawei.cloud.servicestage.intellij;
 
 import org.ini4j.Config;
 import org.ini4j.Configurable;
