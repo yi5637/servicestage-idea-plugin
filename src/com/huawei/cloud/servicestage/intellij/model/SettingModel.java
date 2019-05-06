@@ -11,9 +11,13 @@ public class SettingModel {
 
     private String domain;
 
+    private String domainReal;
+
     private String username;
 
     private String password;
+
+    private String tokenContent;
 
     public SettingModel() {
     }
@@ -21,15 +25,8 @@ public class SettingModel {
     public SettingModel(String regionText, String domain, String username, String password) {
         this.regionText = regionText;
         this.region = RequestManager.getInstance().getRegions().get(regionText);
-        this.domain = StringUtils.isEmpty(domain) ? username : domain;
-        this.username = username;
-        this.password = password;
-    }
-
-    public SettingModel(String regionText, String username, String password) {
-        this.regionText = regionText;
-        this.region = RequestManager.getInstance().getRegions().get(regionText);
-        this.domain = username;
+        this.domain = domain;
+        this.domainReal = StringUtils.isEmpty(domain) ? username : domain;
         this.username = username;
         this.password = password;
     }
@@ -63,6 +60,14 @@ public class SettingModel {
         this.domain = domain;
     }
 
+    public String getDomainReal() {
+        return domainReal;
+    }
+
+    public void setDomainReal(String domainReal) {
+        this.domainReal = domainReal;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -79,14 +84,24 @@ public class SettingModel {
         this.password = password;
     }
 
+    public String getTokenContent() {
+        return tokenContent;
+    }
+
+    public void setTokenContent(String tokenContent) {
+        this.tokenContent = tokenContent;
+    }
+
     @Override
     public String toString() {
         return "SettingModel{" +
                 "region='" + region + '\'' +
                 ", regionText='" + regionText + '\'' +
                 ", domain='" + domain + '\'' +
+                ", domainReal='" + domainReal + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", tokenContent='" + tokenContent + '\'' +
                 '}';
     }
 }

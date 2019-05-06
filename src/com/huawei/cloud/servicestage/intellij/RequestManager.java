@@ -15,8 +15,14 @@
  */
 package com.huawei.cloud.servicestage.intellij;
 
+import com.huawei.cloud.servicestage.client.AuthClient;
+import com.huawei.cloud.servicestage.client.Token;
+import com.huawei.cloud.servicestage.intellij.model.SettingModel;
+import com.huawei.cloud.servicestage.intellij.setting.SettingState;
 import com.intellij.openapi.diagnostic.Logger;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -74,6 +80,48 @@ public class RequestManager {
         }
 
         return this.regions;
+    }
+
+
+    public Token getAuthToken() throws IOException {
+        return getAuthToken(false);
+    }
+
+    public Token getAuthToken(boolean forceNewToken) throws IOException {
+        SettingModel sm = SettingState.getInstance().getSettingModel();
+        return getAuthToken(forceNewToken, false, sm.getRegion(), sm.getUsername(), sm.getPassword(), sm.getDomain());
+    }
+
+    public Token getAuthToken(boolean forceNewToken, boolean testConnection, String region, String username, String password, String domain) throws IOException {
+        SettingModel sm = SettingState.getInstance().getSettingModel();
+        // get existing token, if any
+        String tokenStr = sm.getTokenContent();
+
+        Token token = null;
+
+        // token found in store
+        if (tokenStr != null && !tokenStr.isEmpty() && !forceNewToken) {
+            Token t = Token.fromString(tokenStr);
+
+            // check if token is valid and not expired
+            if (t.getUsername().equals(username) && t.getRegion().equals(region)
+                    && !t.isExpired()) {
+                token = t;
+            }
+        }
+
+        // no valid token found
+        if (token == null) {
+            LOGGER.info("No valid token found, getting new token");
+            token = AuthClient.getAuthToken(region, username, password,
+                    StringUtils.isEmpty(domain) ? username : domain);
+            if (!testConnection) { // only save to preference when user apply changes in preference page
+                LOGGER.info("Apply new token to preference store");
+                sm.setTokenContent(token.toString());
+            }
+        }
+
+        return token;
     }
 
 }
