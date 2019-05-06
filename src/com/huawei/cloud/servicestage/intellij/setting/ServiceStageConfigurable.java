@@ -8,6 +8,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * ServiceStage setting configuration
+ */
 public class ServiceStageConfigurable implements Configurable {
 
     private ServiceStageSettingForm mGUI;

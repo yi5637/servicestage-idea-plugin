@@ -1,15 +1,16 @@
 package com.huawei.cloud.servicestage.intellij;
 
 import com.huawei.cloud.servicestage.client.Token;
-import com.huawei.cloud.servicestage.intellij.model.SettingModel;
 import com.huawei.cloud.servicestage.intellij.setting.SettingState;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.messages.MessageDialog;
 
 import javax.swing.*;
 import java.util.Map;
 
+/**
+ * ServiceStage setting form
+ */
 public class ServiceStageSettingForm {
     private static final Logger LOGGER = Logger.getInstance(ServiceStageSettingForm.class);
 
@@ -69,26 +70,23 @@ public class ServiceStageSettingForm {
     }
 
     public boolean isModified() {
-        SettingModel sm = settingState.getSettingModel();
-        return sm == null || sm.isModified(String.valueOf(regionComboBox.getSelectedItem()),
+        return settingState == null || settingState.isModified(String.valueOf(regionComboBox.getSelectedItem()),
                 domainText.getText(), usernameText.getText(), String.valueOf(passwordField.getPassword()));
     }
 
     public void apply() {
-        SettingModel sm = new SettingModel(String.valueOf(regionComboBox.getSelectedItem()), domainText.getText(),
+        settingState.updateValue(String.valueOf(regionComboBox.getSelectedItem()), domainText.getText(),
                 usernameText.getText(), String.valueOf(passwordField.getPassword()));
-        settingState.setSettingModel(sm);
-        LOGGER.info("---- " + sm);
+        LOGGER.info("---- " + settingState);
     }
 
     public void reset() {
-        SettingModel sm = settingState.getSettingModel();
-        LOGGER.info("---- " + sm);
-        if (sm != null) {
-            regionComboBox.setSelectedItem(sm.getRegionText());
-            domainText.setText(sm.getDomain());
-            usernameText.setText(sm.getUsername());
-            passwordField.setText(sm.getPassword());
+        LOGGER.info("---- " + settingState);
+        if (settingState != null) {
+            regionComboBox.setSelectedItem(settingState.getRegionText());
+            domainText.setText(settingState.getDomain());
+            usernameText.setText(settingState.getUsername());
+            passwordField.setText(settingState.getPassword());
         }
     }
 }
