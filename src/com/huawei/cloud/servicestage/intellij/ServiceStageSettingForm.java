@@ -15,17 +15,12 @@ public class ServiceStageSettingForm {
     private static final Logger LOGGER = Logger.getInstance(ServiceStageSettingForm.class);
 
     private JPanel rootPanel;
-    private JTextField usernameText;
-    private JTextField domainText;
-    private JLabel titleLable;
-    private JLabel regionLable;
-    private JLabel usernameLabel;
-    private JLabel passwordLabel;
-    private JLabel domainLabel;
-    private JPasswordField passwordField;
+    private JTextField usernameInput;
+    private JTextField domainInput;
+    private JPasswordField passwordInput;
     private JButton testConnectionButton;
     private JButton resetTokenButton;
-    private JComboBox regionComboBox;
+    private JComboBox regionSelector;
 
     /**
      * PersistentStateComponent
@@ -35,11 +30,11 @@ public class ServiceStageSettingForm {
     public ServiceStageSettingForm() {
         testConnectionButton.addActionListener(event -> {
             try {
-                String regionText = String.valueOf(regionComboBox.getSelectedItem());
+                String regionText = String.valueOf(regionSelector.getSelectedItem());
                 String region = RequestManager.getInstance().getRegions().get(regionText);
-                String username = usernameText.getText();
-                String password = String.valueOf(passwordField.getPassword());
-                String domain = domainText.getText();
+                String username = usernameInput.getText();
+                String password = String.valueOf(passwordInput.getPassword());
+                String domain = domainInput.getText();
 
                 Token token = RequestManager.getInstance().getAuthToken(true, false,
                         region, username, password, domain);
@@ -62,7 +57,7 @@ public class ServiceStageSettingForm {
     public void createUI() {
         settingState = SettingState.getInstance();
         Map<String, String> regions = RequestManager.getInstance().getRegions();
-        regions.keySet().forEach(el -> regionComboBox.addItem(el));
+        regions.keySet().forEach(el -> regionSelector.addItem(el));
     }
 
     public JPanel getRootPanel() {
@@ -70,23 +65,23 @@ public class ServiceStageSettingForm {
     }
 
     public boolean isModified() {
-        return settingState == null || settingState.isModified(String.valueOf(regionComboBox.getSelectedItem()),
-                domainText.getText(), usernameText.getText(), String.valueOf(passwordField.getPassword()));
+        return settingState == null || settingState.isModified(String.valueOf(regionSelector.getSelectedItem()),
+                domainInput.getText(), usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
     }
 
     public void apply() {
-        settingState.updateValue(String.valueOf(regionComboBox.getSelectedItem()), domainText.getText(),
-                usernameText.getText(), String.valueOf(passwordField.getPassword()));
+        settingState.updateValue(String.valueOf(regionSelector.getSelectedItem()), domainInput.getText(),
+                usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
         LOGGER.info("---- " + settingState);
     }
 
     public void reset() {
         LOGGER.info("---- " + settingState);
         if (settingState != null) {
-            regionComboBox.setSelectedItem(settingState.getRegionText());
-            domainText.setText(settingState.getDomain());
-            usernameText.setText(settingState.getUsername());
-            passwordField.setText(settingState.getPassword());
+            regionSelector.setSelectedItem(settingState.getRegionText());
+            domainInput.setText(settingState.getDomain());
+            usernameInput.setText(settingState.getUsername());
+            passwordInput.setText(settingState.getPassword());
         }
     }
 }
